@@ -1,3 +1,10 @@
+python3 -c "
+import sys
+content = sys.stdin.read()
+with open('app/parser.py', 'w') as f:
+    f.write(content)
+print('✅ app/parser.py created successfully')
+" << 'ENDOFPYTHON'
 import re, json
 from datetime import datetime
 from dateutil import parser as dtp
@@ -78,3 +85,4 @@ def parse_record(obj: dict) -> dict:
         "has_res_body": has_res_body,
         "message": message,
     }
+ENDOFPYTHON

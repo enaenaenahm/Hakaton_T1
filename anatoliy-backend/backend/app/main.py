@@ -1,3 +1,10 @@
+python3 -c "
+import sys
+content = sys.stdin.read()
+with open('app/main.py', 'w') as f:
+    f.write(content)
+print('✅ app/main.py created successfully')
+" << 'ENDOFPYTHON'
 from fastapi import FastAPI, Body, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -10,7 +17,7 @@ from .parser import parse_record
 from .gantt import build_gantt_segments
 from .plugins.manager import run_plugins_export
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg://logviewer:logviewer@localhost:5432/logviewer")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg://daceytal@localhost:5432/logviewer")
 engine = create_engine(DATABASE_URL, future=True)
 Session = sessionmaker(bind=engine, future=True)
 
@@ -46,9 +53,6 @@ def insert_record(conn, rec):
 
 @app.post("/import")
 async def import_logs(raw_body: bytes = Body(...)):
-    """
-    Принимает NDJSON или JSON массив.
-    """
     inserted = 0
     lines = []
     body = raw_body.strip()
@@ -165,3 +169,4 @@ def export(query: str = "", fmt: str = "ndjson"):
 @app.get("/plugins/run")
 def plugins_run():
     return run_plugins_export(engine)
+ENDOFPYTHON

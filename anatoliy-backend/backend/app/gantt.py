@@ -1,3 +1,10 @@
+python3 -c "
+import sys
+content = sys.stdin.read()
+with open('app/gantt.py', 'w') as f:
+    f.write(content)
+print('✅ app/gantt.py created successfully')
+" << 'ENDOFPYTHON'
 from collections import defaultdict
 from dateutil import parser as dtp
 
@@ -32,3 +39,4 @@ def build_gantt_segments(items, tf_req_id=None):
         }
         segments.append(seg)
     return sorted(segments, key=lambda s: s['start_ts'])
+ENDOFPYTHON
