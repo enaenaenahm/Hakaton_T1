@@ -19,21 +19,11 @@
 ## 🏗 Архитектура
 
 ```Markdown
-```mermaid
-flowchart LR
-    subgraph FE[Frontend :5174]
-        React[React + Vite]
-    end
-    subgraph BE[Backend API :8000]
-        FastAPI[FastAPI + Python]
-    end
-    subgraph DB[PostgreSQL :5432]
-        PG[(PostgreSQL<br/>+ FTS index)]
-    end
-  
-    React -->|HTTP| FastAPI
-    FastAPI -->|SQL| PG
-```
+┌──────────────┐      ┌──────────────────┐      ┌──────────────┐
+│   Frontend   │─────▶│   Backend API    │─────▶│  PostgreSQL  │
+│  React+Vite  │ HTTP │  FastAPI (Python)│ SQL  │  + FTS index │
+│  :5174       │      │  :8000           │      │  :5432       │
+└──────────────┘      └──────────────────┘      └──────────────┘
 ```
 
 **Стек:**
@@ -44,7 +34,7 @@ flowchart LR
 
 ## 📁 Структура проекта
 
-```
+```Markdown
 Fixiki_TerraformLogViewer_HackathonT1/
 ├── anatoliy-backend/backend/      # Python FastAPI
 │   ├── app/
